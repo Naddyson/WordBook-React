@@ -1,0 +1,13 @@
+.appbar {
+		z-index:2000 !important
+}
+.logo {
+	
+	z-index:2500 !important;
+	
+	margin: 0;
+}
+img{
+	z-index:5000!important;
+	
+}

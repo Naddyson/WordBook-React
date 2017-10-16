@@ -1,0 +1,16 @@
+.sidebar {
+	margin:0 ;
+	height: 100%;
+	width: 30%;
+	float: left;
+}
+.contentarea {
+	margin: 0;
+	margin-left: 200px;	
+	position: absolute;
+	height: 100%;
+	background-color: black;
+	width: 70%;
+	float:right;
+
+}
