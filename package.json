@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-init": "^2.0.4",
+    "babel-preset-react": "^6.24.1",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.19.4",
     "react": "^16.0.0",
@@ -14,13 +15,23 @@
     "redux-devtools": "^3.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server",
+    "webpack": "webpack"
   },
   "main": "src/index.js",
   "repository": "https://github.com/Naddyson/wordbook-react.git",
   "author": "Naddyson <Naddyson777@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.9.2",
+    "webpack-hot-middleware": "^2.20.0"
+  }
 }
