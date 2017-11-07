@@ -3,7 +3,7 @@ import './App.css';
 import AppView from './components/AppView'
 import { connect } from 'react-redux'
 
-class App extends Component {
+export default class App extends Component {
     render() {
       
 
@@ -14,10 +14,3 @@ class App extends Component {
   	) 
   }
 }
-function mapStateToProps (state) {
-  return {
-    user: state.user
-  }
-}
-
-export default connect(mapStateToProps)(App);

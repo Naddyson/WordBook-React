@@ -5,15 +5,18 @@ export default class TableItemRow extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			data: this.props.data
+			data: this.props.data,
+			index: this.props.index
 		}
 	}
 	render(){
+		console.log(data);
 		return (
-			<TableRow>
-		        <TableRowColumn>{this.state.data.index}</TableRowColumn>
+			<TableRow key="index">
+		        
 		        <TableRowColumn>{this.state.data.word}</TableRowColumn>
 		        <TableRowColumn>{this.state.data.translation}</TableRowColumn>
+		        <TableRowColumn>{this.state.data.description}</TableRowColumn>
 			</TableRow>
 		)
 	}
