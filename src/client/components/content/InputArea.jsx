@@ -8,19 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-let createHandlers = function (dispatch){
-	let onAddWord = function (word){
-		dispatch(addWord(word))
-	}
-	return {
-		onAddWord
-	}
-}
 
 class InputArea extends Component {
 	constructor(props){
 		super(props);
-		this.handlers = createHandlers(this.props.dispatch)
+		
 		this.state = {
 			word: '',
 			translation: '',
@@ -38,12 +30,12 @@ class InputArea extends Component {
 	}
 	btnClickHandle(e){
 		e.preventDefault();
-		var word = {
+		let word = {
 				word: this.state.word,
 				translation: this.state.translation,
 				description: this.state.description
 			}
-		this.handlers.onAddWord(word);
+		this.props.onAddWord(word);
 	}
 
 	render(){
@@ -70,5 +62,13 @@ class InputArea extends Component {
 	}
 }
 
+function mapDispatchToProps(dispatch){
+	return {
+		onAddWord: (newWord) => {
+			dispatch(addWord(newWord))
+		}
+	}
+}
 
-export default connect()(InputArea);
+
+export default connect(state => ({}), mapDispatchToProps)(InputArea);

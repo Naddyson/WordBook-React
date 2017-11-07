@@ -65,10 +65,6 @@ function mapStateToProps(state){
 	}
 }
 
-/*function mapDispatchToProps(dispatch){
-	return {
-		fetchWords: bindActionsCreators(fetchWords, dispatch)
-	}
-}*/
+
 
 export default connect(mapStateToProps)(ItemsTable)
