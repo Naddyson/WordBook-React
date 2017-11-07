@@ -11,22 +11,32 @@ import TableItemRow from './TableItemRow'
 import { fetchWords } from '../../actions'
 import { connect } from 'react-redux';
 import { bindActionsCreators } from 'redux'
-
+/*
+let createHandlers = function(dispatch){
+	console.log(fetchWords())
+	let fetchWords = () =>{
+		dispatch(fetchWords())
+	} 
+	return {
+		fetchWords
+	}
+}
+*/
 class ItemsTable extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			words: this.props.words
+			
 		}
+		
 	}
 	render(){
-		const { words } = this.props
-		const { fetchWords } = this.props.fetchWords
+		console.log(this.props.words)
+		
 		return (
 			<Table>
 			    <TableHeader>
 			      <TableRow>
-			        
 			        <TableHeaderColumn>Word</TableHeaderColumn>
 			        <TableHeaderColumn>Translation</TableHeaderColumn>
 			        <TableHeaderColumn>Description</TableHeaderColumn>
@@ -35,8 +45,10 @@ class ItemsTable extends Component {
 			    
 			    <TableBody>
 			    	{ 
-				    	this.props.words.map((word,index) => {
-				    		<TableItemRow index={index} data={word}/>} 
+				    	this.props.words.map((word,index) => 
+
+				    		<TableItemRow key={index} data={word}/>
+				    	
 				    	)
 				    	
 			    	}
@@ -59,4 +71,4 @@ function mapStateToProps(state){
 	}
 }*/
 
-export default connect(mapStateToProps, {fetchWords})(ItemsTable)
+export default connect(mapStateToProps)(ItemsTable)

@@ -15,7 +15,7 @@
     "redux-devtools": "^3.4.0"
   },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --hot --inline",
     "webpack": "webpack"
   },
   "main": "src/index.js",
