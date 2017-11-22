@@ -7,10 +7,12 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import TableItemRow from './TableItemRow'
+
 import { fetchWords } from '../../actions'
 import { connect } from 'react-redux';
-import { bindActionsCreators } from 'redux'
+import {bindActionCreators} from 'redux';
+
+
 /*
 let createHandlers = function(dispatch){
 	console.log(fetchWords())
@@ -26,17 +28,20 @@ class ItemsTable extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			
+			checkbox:true
 		}
 		
 	}
+	componentDidMount(){
+		this.props.onGetWords()
+	}
 	render(){
-		console.log(this.props.words)
-		
 		return (
 			<Table>
-			    <TableHeader>
+			    <TableHeader
+>
 			      <TableRow>
+			        
 			        <TableHeaderColumn>Word</TableHeaderColumn>
 			        <TableHeaderColumn>Translation</TableHeaderColumn>
 			        <TableHeaderColumn>Description</TableHeaderColumn>
@@ -45,10 +50,14 @@ class ItemsTable extends Component {
 			    
 			    <TableBody>
 			    	{ 
-				    	this.props.words.map((word,index) => 
-
-				    		<TableItemRow key={index} data={word}/>
-				    	
+			    
+				    	this.props.words.map((word,index) => (
+				    		<TableRow>
+				    		<TableRowColumn>{word.word}</TableRowColumn>
+					        <TableRowColumn>{word.translation}</TableRowColumn>
+					        <TableRowColumn>{word.description}</TableRowColumn>
+					        </TableRow>
+					    )
 				    	)
 				    	
 			    	}
@@ -64,7 +73,21 @@ function mapStateToProps(state){
 		words: state.words
 	}
 }
+function mapDispatchToProps(dispatch){
+return {
+	onGetWords: () => {
+		dispatch(fetchWords());
+	}
+}
+/*
+	return {
+		onGetWords: () => {
+			dispatch(fetchWords())
+		}
+	}*/
+}
+		
 
 
 
-export default connect(mapStateToProps)(ItemsTable)
+export default connect(mapStateToProps,mapDispatchToProps)(ItemsTable)
