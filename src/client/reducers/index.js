@@ -1,9 +1,10 @@
 
-import { createWord } from '../api/index.js'
+
 
 const initialState = {
 	words: [
 		{
+			_id: 123,
 			word: "Word",
 			translation: "Translation",
 			description: "description"
@@ -16,9 +17,6 @@ export default function words (state = initialState, action) {
 	switch(action.type){
 		case "FETCH_WORDS":{
 			return {words: action.payload}
-		}
-		case "ADD_WORD": {
-			return {...state, words: state.words.concat(action.payload)}
 		}
 		default: return state
 	}

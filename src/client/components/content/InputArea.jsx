@@ -1,5 +1,5 @@
 import React, { Component } from 'react' 
-import RaisedButton from 'material-ui/RaisedButton'
+import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
@@ -52,7 +52,7 @@ class InputArea extends Component {
 				    <TextField hintText="Description" onChange={this.onDescriptionChange.bind(this)}/>
 				    <br/>
 				    
-				    <RaisedButton label="Add" onClick={this.btnClickHandle.bind(this)}
+				    <Button label="Add" onClick={this.btnClickHandle.bind(this)}
 								
 					/>
 				

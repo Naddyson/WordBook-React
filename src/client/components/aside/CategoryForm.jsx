@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 
 export default class CategoryForm extends Component {
 	constructor(props){
@@ -11,12 +11,12 @@ export default class CategoryForm extends Component {
 	}
 	render(){
 		const actions = [
-	      <FlatButton
+	      <Button
 	        label="Cancel"
 	        primary={true}
 	        onClick={this.handleClose}
 	      />,
-	      <FlatButton
+	      <Button
 	        label="Submit"
 	        primary={true}
 	        keyboardFocused={true}

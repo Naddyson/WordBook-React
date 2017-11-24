@@ -1,6 +1,5 @@
 
 import axios from 'axios'
-import { createWord } from '../api/index'
 export function fetchWords() {
 	/*return {
 		type: "FETCH_WORDS",
@@ -20,9 +19,14 @@ export function fetchWords() {
 
 
 export function addWord(word){
-	axios.post('http://localhost:8081/words',word);
-	return {
-		type: "ADD_WORD",
-		payload: word
+	return dispatch => {
+		axios.post('http://localhost:8081/words',word)
+		.then(response => {
+			console.log(response);
+			dispatch(fetchWords());
+		})
+		.catch(error => {
+			console.log('error'+error.response)
+		})
 	}
 }
