@@ -30,8 +30,7 @@ function createData(name, calories, fat, carbs, protein) {
 const columnData = [
   { id: 'word', numeric: false, disablePadding: true, label: 'Word' },
   { id: 'translation', numeric: false, disablePadding: true, label: 'Translation' },
-  { id: 'description', numeric: false, disablePadding: true, label: 'Description' },
-
+  { id: 'description', numeric: false, disablePadding: true, label: 'Description' }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -97,8 +96,9 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-  const { numSelected, classes } = props;
 
+  const { numSelected, classes, handleDeleteSelected } = props;
+  
   return (
     <Toolbar
       className={classNames(classes.root, {
@@ -115,7 +115,7 @@ let EnhancedTableToolbar = props => {
       <div className={classes.spacer} />
       <div className={classes.actions}>
         {numSelected > 0 ? (
-          <Tooltip title="Delete">
+          <Tooltip title="Delete" onClick={handleDeleteSelected}>
             <IconButton aria-label="Delete">
               <DeleteIcon />
             </IconButton>
@@ -135,6 +135,7 @@ let EnhancedTableToolbar = props => {
 EnhancedTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
   numSelected: PropTypes.number.isRequired,
+  selectedArray: PropTypes.object.idRequired
 };
 
 EnhancedTableToolbar = withStyles(toolbarStyles)(EnhancedTableToolbar);
@@ -171,6 +172,10 @@ class ItemsTable extends React.Component {
     }
     this.setState({ selected: [] });
   };
+  handleDeleteSelected = () => {
+    this.props.handleDeleteSelected(this.state.selected)
+    this.setState({ selected: [] });
+  }
 
   handleKeyDown = (event, id) => {
     if (keycode(event) === 'space') {
@@ -213,9 +218,14 @@ class ItemsTable extends React.Component {
     const { classes } = this.props;
     const { selected, rowsPerPage, page } = this.state;
     const data = this.props.data; 
+
     return (
       <Paper className={classes.root}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar 
+          numSelected={selected.length} 
+          selectedArray={this.state.selected}
+          handleDeleteSelected={this.handleDeleteSelected.bind(this)}
+          />
         <div className={classes.tableWrapper}>
           <Table className={classes.table}>
             <EnhancedTableHead
@@ -223,6 +233,7 @@ class ItemsTable extends React.Component {
               
               onSelectAllClick={this.handleSelectAllClick}
                             rowCount={data.length}
+              
             />
             <TableBody>
               {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
@@ -242,8 +253,8 @@ class ItemsTable extends React.Component {
                       <Checkbox checked={isSelected} />
                     </TableCell>
                     <TableCell padding="none">{n.word}</TableCell>
-                    <TableCell numeric>{n.translation}</TableCell>
-                    <TableCell numeric>{n.description}</TableCell>
+                    <TableCell padding="none">{n.translation}</TableCell>
+                    <TableCell padding="none">{n.description}</TableCell>
                     
                   </TableRow>
                 );

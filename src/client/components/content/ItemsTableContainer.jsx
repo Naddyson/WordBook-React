@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 
-import { fetchWords } from '../../actions'
+import { fetchWords, deleteWord } from '../../actions'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -35,6 +35,12 @@ class ItemsTableContainer extends Component {
 	componentDidMount(){
 		this.props.onGetWords()
 	}
+	handleDeleteSelected(selected){
+		selected.map(wordId => {
+			this.props.onDeleteWord(wordId)
+		});	
+		
+	}
 	/*handleRowSelection (indices) {
 		if (indices === 'all' ) {
 			this.setState({ selectedWords: this.props.words })
@@ -60,7 +66,7 @@ class ItemsTableContainer extends Component {
 	render(){
 		
 		return (
-			<ItemsTable data={this.props.words}/>
+			<ItemsTable data={this.props.words} handleDeleteSelected={this.handleDeleteSelected.bind(this)}/>
 		)
 	}
 }
@@ -74,6 +80,9 @@ function mapDispatchToProps(dispatch){
 	return {
 		onGetWords: () => {
 			dispatch(fetchWords());
+		},
+		onDeleteWord: (wordId) => {
+			dispatch(deleteWord(wordId))
 		}
 	}
 }

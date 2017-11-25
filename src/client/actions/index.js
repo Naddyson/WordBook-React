@@ -30,3 +30,16 @@ export function addWord(word){
 		})
 	}
 }
+
+export function deleteWord(wordId){
+	return dispatch => {
+		axios.delete('http://localhost:8081/words/'+wordId)
+		.then(response => {
+			console.log(response);
+			dispatch(fetchWords())
+		})
+		.catch(error => {
+			console.log('error'+error.response)
+		})
+	}
+}

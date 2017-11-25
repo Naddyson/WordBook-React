@@ -11,7 +11,7 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
-import InputArea from './content/InputArea'
+import InputAreaContainer from './content/InputArea'
 import ItemsTableContainer from './content/ItemsTableContainer'
 
 const drawerWidth = 240;
@@ -117,7 +117,7 @@ class PermanentDrawer extends React.Component {
           </AppBar>
           {before}
           <main className={classes.content}>
-            <InputArea/>
+            <InputAreaContainer/>
             <ItemsTableContainer/>
           </main>
           {after}
