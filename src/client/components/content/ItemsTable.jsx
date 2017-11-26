@@ -218,6 +218,7 @@ class ItemsTable extends React.Component {
     const { classes } = this.props;
     const { selected, rowsPerPage, page } = this.state;
     const data = this.props.data; 
+    console.log(data)
 
     return (
       <Paper className={classes.root}>

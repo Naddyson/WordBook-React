@@ -5,21 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-const styles = {
-	root: {
-		width: '50%',
-		float:'left',
-	},
-	word: {
-		width: '50%',
-		float:'left',
-	},
-	translation: {
-		width: '50%',
-		float: 'right',
-	}
-}
-
 class InputAreaContainer extends Component {
 	constructor(props){
 		super(props);

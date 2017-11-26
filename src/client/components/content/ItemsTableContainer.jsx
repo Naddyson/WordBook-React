@@ -64,7 +64,7 @@ class ItemsTableContainer extends Component {
 	}*/
 
 	render(){
-		
+		console.log(this.props.words)
 		return (
 			<ItemsTable data={this.props.words} handleDeleteSelected={this.handleDeleteSelected.bind(this)}/>
 		)

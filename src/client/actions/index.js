@@ -18,6 +18,7 @@ export function fetchWords() {
 }
 
 
+
 export function addWord(word){
 	return dispatch => {
 		axios.post('http://localhost:8081/words',word)
@@ -37,6 +38,32 @@ export function deleteWord(wordId){
 		.then(response => {
 			console.log(response);
 			dispatch(fetchWords())
+		})
+		.catch(error => {
+			console.log('error'+error.response)
+		})
+	}
+}
+
+
+export function fetchLists(){
+	return dispatch => {
+		axios.get('http://localhost:8081/lists').then((response) => dispatch({
+			type: "FETCH_LISTS",
+			payload: response.data
+		}))
+	}
+}
+
+export function addList(list){
+
+	return dispatch => {
+		console.log(list)
+		axios.post('http://localhost:8081/lists',list)
+		.then(response => {
+			console.log(response);
+
+			dispatch(fetchList());
 		})
 		.catch(error => {
 			console.log('error'+error.response)

@@ -1,24 +1,35 @@
 import React from 'react';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer'
-import CategoryForm from './CategoryForm'
-import Button from 'material-ui/Button'
-import Paper from 'material-ui/Paper';
+import AddListDialog from './AddListDialog'
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
 
-export default class Sidebar extends React.Component {
+import Paper from 'material-ui/Paper';
+import { withStyles } from 'material-ui/styles';
+import Divider from 'material-ui/Divider';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+
+const drawerWidth = 240;//AppView have it too
+
+const styles = theme => ({
+  drawerPaper: {
+    position: 'relative',
+    height: '100%',
+    width: drawerWidth,
+  },
+  drawerHeader: theme.mixins.toolbar
+})
+
+ class Sidebar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      open: this.props.openSidebar,
       openDialog: false,
       left: true
     }
   }
-  /*toggleDrawer(side, open){
-    this.setState({
-      [side]: open
-    })
-  }*/
+  
   handleAddClick(){
     this.setState({
       openDialog: true
@@ -26,15 +37,34 @@ export default class Sidebar extends React.Component {
   }
 
   render() {
+    var classes = this.props.classes
     return (
-      <Paper className='sidebar'>
-      <Button>НФН</Button>
-        <MenuList>
-          <MenuItem>All words</MenuItem>
-          <MenuItem onClick={this.handleAddClick.bind(this)} >Add new list</MenuItem>
-        </MenuList>
-      <CategoryForm open={this.state.openDialog}/>
-      </Paper>
+       <Drawer
+        type="permanent"
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        anchor='left'
+      >
+        <div className={classes.drawerHeader} />
+
+        <Divider />
+        <List>
+          <ListItem button>
+            <ListItemText primary="All Words" />
+          </ListItem>
+          {this.props.lists.map(list => {
+            return(
+              <ListItem button>
+                <ListItemText primary={list.name} />
+              </ListItem>
+            )
+          })}
+      </List>
+        <AddListDialog/>
+      </Drawer>
     );
   }
 }
+
+export default withStyles(styles)(Sidebar)
