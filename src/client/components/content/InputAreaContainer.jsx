@@ -7,16 +7,16 @@ import {bindActionCreators} from 'redux';
 
 const styles = {
 	root: {
-		width: 50%;
-		float:left;
-	}
+		width: '50%',
+		float:'left',
+	},
 	word: {
-		width: 50%;
-		float:left;
-	}
+		width: '50%',
+		float:'left',
+	},
 	translation: {
-		width: 50%;
-		float: right;
+		width: '50%',
+		float: 'right',
 	}
 }
 

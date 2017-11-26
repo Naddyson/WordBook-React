@@ -11,7 +11,7 @@ import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
-import InputAreaContainer from './content/InputArea'
+import InputAreaContainer from './content/InputAreaContainer'
 import ItemsTableContainer from './content/ItemsTableContainer'
 
 const drawerWidth = 240;

@@ -45,7 +45,7 @@ class InputArea extends Component {
 		  [name]: event.target.value,
 		});
 	};
-	addWord = () => {
+	addWord() {
 		var word = {
 			word: this.state.word,
 			translation: this.state.translation,
