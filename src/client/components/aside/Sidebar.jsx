@@ -1,7 +1,7 @@
 import React from 'react';
 import { MenuItem, MenuList } from 'material-ui/Menu';
 import Drawer from 'material-ui/Drawer'
-import AddListDialog from './AddListDialog'
+import AddListContainer from './AddListContainer'
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
@@ -9,6 +9,8 @@ import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+
+import logo from '../../logo.png'
 
 const drawerWidth = 240;//AppView have it too
 
@@ -18,7 +20,11 @@ const styles = theme => ({
     height: '100%',
     width: drawerWidth,
   },
-  drawerHeader: theme.mixins.toolbar
+  drawerHeader: theme.mixins.toolbar,
+  logo: {
+    dispay: 'block',
+    margin: 'auto'
+  }
 })
 
  class Sidebar extends React.Component {
@@ -46,7 +52,9 @@ const styles = theme => ({
         }}
         anchor='left'
       >
-        <div className={classes.drawerHeader} />
+        <div className={classes.drawerHeader}>
+          <img src={logo} className={classes.logo}/>
+        </div>
 
         <Divider />
         <List>
@@ -61,7 +69,7 @@ const styles = theme => ({
             )
           })}
       </List>
-        <AddListDialog/>
+        <AddListContainer/>
       </Drawer>
     );
   }

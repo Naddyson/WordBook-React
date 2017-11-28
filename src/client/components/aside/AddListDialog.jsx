@@ -41,7 +41,7 @@ class AddListDialog extends React.Component {
       name: this.state.name,
       words: []
     }
-    addList(newList)
+    this.props.onBtnAddClick(newList)
     this.setState({name: '', open:false})
   };
   handleChange = name => event => {

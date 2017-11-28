@@ -56,14 +56,14 @@ export function fetchLists(){
 }
 
 export function addList(list){
-
 	return dispatch => {
+
 		console.log(list)
 		axios.post('http://localhost:8081/lists',list)
 		.then(response => {
 			console.log(response);
 
-			dispatch(fetchList());
+			dispatch(fetchLists());
 		})
 		.catch(error => {
 			console.log('error'+error.response)
