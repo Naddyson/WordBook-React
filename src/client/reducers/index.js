@@ -2,26 +2,12 @@
 
 
 const initialState = {
-	words: [
-		{
-			_id: 123,
-			word: "Word",
-			translation: "Translation",
-			description: "description"
-		}
-	],
-	lists: [
-		{
-			_id: 123,
-			name: "One",
-			words: []
-		},
-		{
-			_id:111,
-			name: "Two",
-			words: []
-		}
-	]
+	currentList: {
+		_id: 0,
+		name: 'All words'
+	},
+	words: [],
+	lists: []
 }
 
 export default function words (state = initialState, action) {
@@ -32,6 +18,9 @@ export default function words (state = initialState, action) {
 		}
 		case "FETCH_LISTS": {
 			return {...state, lists: action.payload}
+		}
+		case "SET_CURRENT_LIST": {
+			return {...state, currentList: action.payload}
 		}
 		default: return state
 	}

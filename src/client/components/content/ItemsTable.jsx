@@ -97,7 +97,7 @@ const toolbarStyles = theme => ({
 
 let EnhancedTableToolbar = props => {
 
-  const { numSelected, classes, handleDeleteSelected } = props;
+  const { numSelected, classes, handleDeleteSelected, listName } = props;
   
   return (
     <Toolbar
@@ -109,7 +109,7 @@ let EnhancedTableToolbar = props => {
         {numSelected > 0 ? (
           <Typography type="subheading">{numSelected} selected</Typography>
         ) : (
-          <Typography type="title">Nutrition</Typography>
+          <Typography type="title">{ listName }</Typography>
         )}
       </div>
       <div className={classes.spacer} />
@@ -226,6 +226,7 @@ class ItemsTable extends React.Component {
           numSelected={selected.length} 
           selectedArray={this.state.selected}
           handleDeleteSelected={this.handleDeleteSelected.bind(this)}
+          listName={this.props.listName}
           />
         <div className={classes.tableWrapper}>
           <Table className={classes.table}>

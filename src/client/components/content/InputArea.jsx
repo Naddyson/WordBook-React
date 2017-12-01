@@ -56,7 +56,7 @@ class InputArea extends Component {
 		this.setState({
 			word: '',
 			translation: '',
-			desctiption: ''
+			description: ''
 		})
 		
 	}

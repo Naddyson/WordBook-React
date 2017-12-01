@@ -12,7 +12,8 @@ class InputAreaContainer extends Component {
 		this.state = {
 			word: '',
 			translation: '',
-			description: ''
+			description: '',
+			currentListId: this.props.currentListId
 		}
 	}
 	onWordChange(e){
@@ -25,7 +26,7 @@ class InputAreaContainer extends Component {
 		this.state.description = e.target.value;
 	}
 	addWordHandle(word){		
-		this.props.onAddWord(word);
+		this.props.onAddWord(word,this.props.currentList._id);
 	}
 
 	render(){
@@ -37,13 +38,19 @@ class InputAreaContainer extends Component {
 	}
 }
 
+function mapStateToProps(state){
+	return {
+		currentList: state.currentList
+	}
+}
+
 function mapDispatchToProps(dispatch){
 	return {
-		onAddWord: (newWord) => {
-			dispatch(addWord(newWord))
+		onAddWord: (newWord,currentListId) => {
+			dispatch(addWord(newWord,currentListId))
 		}
 	}
 }
 
 
-export default connect(state => ({}), mapDispatchToProps)(InputAreaContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(InputAreaContainer);

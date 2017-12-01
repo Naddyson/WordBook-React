@@ -8,6 +8,7 @@ import AddIcon from 'material-ui-icons/Add';
 import Paper from 'material-ui/Paper';
 import { withStyles } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
+import ListItemContainer from './ListItemContainer'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
 import logo from '../../logo.png'
@@ -41,6 +42,9 @@ const styles = theme => ({
       openDialog: true
     })
   }
+  setCurrentList(){
+
+  }
 
   render() {
     var classes = this.props.classes
@@ -63,12 +67,12 @@ const styles = theme => ({
           </ListItem>
           {this.props.lists.map(list => {
             return(
-              <ListItem button>
-                <ListItemText primary={list.name} />
-              </ListItem>
+              <ListItemContainer data={list} />
             )
           })}
-      </List>
+          <Divider />
+        </List>
+
         <AddListContainer/>
       </Drawer>
     );

@@ -19,16 +19,34 @@ export function fetchWords() {
 
 
 
-export function addWord(word){
+export function addWord(word,toListId){
 	return dispatch => {
 		axios.post('http://localhost:8081/words',word)
 		.then(response => {
 			console.log(response);
-			dispatch(fetchWords());
+			if (toListId != 0 ){
+				var wordId = {wordId: response.data[0]._id};
+				console.log('wordid= '+wordId)
+				axios.post('http://localhost:8081/lists/push_word/'+toListId, wordId)
+				.then(response => {
+					console.log(response)
+					dispatch(fetchLists());
+					dispatch(fetchWords());
+				})
+				.catch(error => {
+					console.log('error'+error.response)
+				})
+			} else {
+				dispatch(fetchWords());
+			}
+			
 		})
 		.catch(error => {
 			console.log('error'+error.response)
 		})
+
+
+
 	}
 }
 
@@ -69,4 +87,27 @@ export function addList(list){
 			console.log('error'+error.response)
 		})
 	}
+}
+
+export function deleteList(listId){
+	return dispatch => {
+		axios.delete('http://localhost:8081/lists/'+listId)
+		.then(response => {
+			console.log(response);
+			dispatch(fetchLists())
+		})
+		.catch(error => {
+			console.log('error'+error.response)
+		})
+	}
+}
+
+export function setCurrentList(list){
+	return dispatch => {
+		dispatch({
+			type: "SET_CURRENT_LIST",
+			payload: list
+		})
+	}
+	
 }

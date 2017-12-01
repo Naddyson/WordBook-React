@@ -64,16 +64,32 @@ class ItemsTableContainer extends Component {
 	}*/
 
 	render(){
-		console.log(this.props.words)
+		console.log(this.props.wordsFiltered)
 		return (
-			<ItemsTable data={this.props.words} handleDeleteSelected={this.handleDeleteSelected.bind(this)}/>
+			<ItemsTable data={this.props.words} listName={this.props.currentList.name} handleDeleteSelected={this.handleDeleteSelected.bind(this)}/>
 		)
 	}
 }
 
+
 function mapStateToProps(state){
+	function filterWords (){
+		if (state.currentList._id != 0 ){
+			var filteredWords = [];
+			state.currentList.words.forEach(wordId => {
+				state.words.forEach(word => {
+					if ( wordId === word._id ) filteredWords.push(word);
+				})
+			})
+			return filteredWords;
+		}
+		return state.words;
+		
+	}
 	return {
-		words: state.words
+		wordsFiltered: filterWords(),
+		words: filterWords(),
+		currentList: state.currentList
 	}
 }
 function mapDispatchToProps(dispatch){
