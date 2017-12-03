@@ -41,30 +41,9 @@ class ItemsTableContainer extends Component {
 		});	
 		
 	}
-	/*handleRowSelection (indices) {
-		if (indices === 'all' ) {
-			this.setState({ selectedWords: this.props.words })
-		} else if ( indices === 'none' ) {
-			this.setState({ selectedWords: [] })
-		} else {
-			let words = indices.map(index => {
-				return this.props.words[index];
-			})
-			this.setState({ selectedWords: words })
-		}
-	}
-	isWordSelected (subjectWord) {
-		this.state.selectedWords.forEach(selectedWord => {
-			if (subjectWord._id === selectedWord._id) return true;
-		})
-		return false;
-	}
-	deleteAllSelectedWords () {
-		console.log(this.state.selectedWords)
-	}*/
 
 	render(){
-		console.log(this.props.wordsFiltered)
+	
 		return (
 			<ItemsTable data={this.props.words} listName={this.props.currentList.name} handleDeleteSelected={this.handleDeleteSelected.bind(this)}/>
 		)
@@ -73,22 +52,17 @@ class ItemsTableContainer extends Component {
 
 
 function mapStateToProps(state){
-	function filterWords (){
-		if (state.currentList._id != 0 ){
-			var filteredWords = [];
-			state.currentList.words.forEach(wordId => {
-				state.words.forEach(word => {
-					if ( wordId === word._id ) filteredWords.push(word);
+	function filter(){
+			if (state.currentList._id != 0){
+				return state.words.filter(word => {
+					if (word.list === state.currentList._id) return true; return false;
 				})
-			})
-			return filteredWords;
+			} else {
+				return state.words
+			}
 		}
-		return state.words;
-		
-	}
 	return {
-		wordsFiltered: filterWords(),
-		words: filterWords(),
+		words: filter(),
 		currentList: state.currentList
 	}
 }

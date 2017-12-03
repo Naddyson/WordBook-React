@@ -19,7 +19,7 @@ class SidebarContainer extends Component {
 		this.props.onFetchLists()
 	}
 	render(){
-		console.log(this.props.currentList)
+		
 		return (
 			<Sidebar lists={this.props.lists} onBtnAddClick={this.addList.bind(this)}/>
 		)

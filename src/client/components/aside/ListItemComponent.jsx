@@ -33,6 +33,7 @@ const styles = theme => ({
 		this.props.onDeleteList(this.state.id);
 	}
 	selectList(){
+		console.log(this.props.data)
 		this.props.onSelectCurrentList(this.props.data)
 	}
 

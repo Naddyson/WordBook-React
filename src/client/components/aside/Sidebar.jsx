@@ -24,7 +24,7 @@ const styles = theme => ({
   drawerHeader: theme.mixins.toolbar,
   logo: {
     dispay: 'block',
-    margin: 'auto'
+    margin: '4px 0px 0px 20px'
   }
 })
 
@@ -62,9 +62,6 @@ const styles = theme => ({
 
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemText primary="All Words" />
-          </ListItem>
           {this.props.lists.map(list => {
             return(
               <ListItemContainer data={list} />

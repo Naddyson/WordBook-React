@@ -37,14 +37,41 @@ class InputArea extends Component {
 		this.state = {
 			word: "",
 			translation: "",
-			description: ""
+			description: "",
+			wordIsEmpty: true,
+			translationIsEmpty: true
 		}
 	}
-	handleChange = name => event => {
+	
+	handleWordChange(e) {
 		this.setState({
-		  [name]: event.target.value,
-		});
-	};
+			word: e.target.value
+		})
+		if (this.state.word === ''){
+			this.setState({wordIsEmpty:true})
+			console.log(this.state.word)
+		} else {
+			this.setState({wordIsEmpty:false})
+			console.log(this.state.word)
+
+		}
+	}
+	handleTranslationChange(e) {
+		this.setState({
+			translation: e.target.value
+		})
+		if (this.state.translation === ''){
+			this.setState({translationIsEmpty:true})
+		} else {
+			this.setState({translationIsEmpty:false})
+		}
+	}
+	handleDescriptionChange(e) {
+		this.setState({
+			description: e.target.value
+		})
+		
+	}
 	addWord() {
 		var word = {
 			word: this.state.word,
@@ -66,33 +93,31 @@ class InputArea extends Component {
 			<Paper elevation={4} className={classes.paper}>
 			<Typography type="title">Add new word</Typography>
 			<form className={classes.container}>
-				
-				
 				<TextField
 					label='Word'
 					className={classes.textField}
 					value={this.state.word}
-					onChange={this.handleChange('word')}
+					onChange={this.handleWordChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Translation'
 					className={classes.textField}
 					value={this.state.translation}
-					onChange={this.handleChange('translation')}
+					onChange={this.handleTranslationChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Description'
 					className={classes.description}
 					value={this.state.description}
-					onChange={this.handleChange('description')}
+					onChange={this.handleDescriptionChange.bind(this)}
 					margin='normal'
 				/>
 
 				
 			</form>
-			<Button raised color="primary" className={classes.button} onClick={this.addWord.bind(this)}>
+			<Button disabled={this.state.wordIsEmpty && this.state.translationIsEmpty} raised color="primary" className={classes.button} onClick={this.addWord.bind(this)}>
 			        Add
 			</Button>
 			</Paper>

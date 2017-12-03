@@ -20,6 +20,7 @@ function Transition(props) {
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
+
   },
 });
 
@@ -38,8 +39,7 @@ class AddListDialog extends React.Component {
   };
   handleSubmitClick = () => {
     var newList = {
-      name: this.state.name,
-      words: []
+      name: this.state.name
     }
     this.props.onBtnAddClick(newList)
     this.setState({name: '', open:false})

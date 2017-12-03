@@ -19,26 +19,12 @@ export function fetchWords() {
 
 
 
-export function addWord(word,toListId){
+export function addWord(word){
 	return dispatch => {
 		axios.post('http://localhost:8081/words',word)
 		.then(response => {
 			console.log(response);
-			if (toListId != 0 ){
-				var wordId = {wordId: response.data[0]._id};
-				console.log('wordid= '+wordId)
-				axios.post('http://localhost:8081/lists/push_word/'+toListId, wordId)
-				.then(response => {
-					console.log(response)
-					dispatch(fetchLists());
-					dispatch(fetchWords());
-				})
-				.catch(error => {
-					console.log('error'+error.response)
-				})
-			} else {
-				dispatch(fetchWords());
-			}
+			dispatch(fetchWords())
 			
 		})
 		.catch(error => {

@@ -13,7 +13,7 @@ class InputAreaContainer extends Component {
 			word: '',
 			translation: '',
 			description: '',
-			currentListId: this.props.currentListId
+			list: this.props.currentListId
 		}
 	}
 	onWordChange(e){
@@ -25,8 +25,10 @@ class InputAreaContainer extends Component {
 	onDescriptionChange(e){
 		this.state.description = e.target.value;
 	}
-	addWordHandle(word){		
-		this.props.onAddWord(word,this.props.currentList._id);
+	addWordHandle(word){
+		word.list = this.props.currentListId
+		console.log(word)		
+		this.props.onAddWord(word);
 	}
 
 	render(){
@@ -40,14 +42,14 @@ class InputAreaContainer extends Component {
 
 function mapStateToProps(state){
 	return {
-		currentList: state.currentList
+		currentListId: state.currentList._id
 	}
 }
 
 function mapDispatchToProps(dispatch){
 	return {
-		onAddWord: (newWord,currentListId) => {
-			dispatch(addWord(newWord,currentListId))
+		onAddWord: (newWord) => {
+			dispatch(addWord(newWord))
 		}
 	}
 }

@@ -7,7 +7,12 @@ const initialState = {
 		name: 'All words'
 	},
 	words: [],
-	lists: []
+	lists: [
+		{
+			_id: 0,
+			name: "All words"
+		}
+	]
 }
 
 export default function words (state = initialState, action) {
