@@ -9,11 +9,8 @@ class SidebarContainer extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-
+			
 		}
-	}
-	addList(list){
-		this.props.onAddList(list)
 	}
 	componentWillMount(){
 		this.props.onFetchLists()
@@ -22,7 +19,7 @@ class SidebarContainer extends Component {
 		console.log(this.props.lists)
 		return (
 			
-			<Sidebar lists={this.props.lists} onBtnAddClick={this.addList.bind(this)}/>
+			<App lists={this.props.lists}/>
 		
 		)
 	}

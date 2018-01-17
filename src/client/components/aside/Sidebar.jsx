@@ -24,7 +24,8 @@ const styles = theme => ({
   drawerHeader: theme.mixins.toolbar,
   logo: {
     dispay: 'block',
-    margin: '4px 0px 0px 20px'
+    margin: '4px 0px 0px 24px',
+    height: '56px'
   }
 })
 
@@ -47,6 +48,7 @@ const styles = theme => ({
   }
 
   render() {
+    console.log(this.props.lists)
     var classes = this.props.classes
     return (
        <Drawer

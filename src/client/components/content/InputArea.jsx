@@ -6,31 +6,8 @@ import Divider from 'material-ui/Divider'
 import { withStyles } from 'material-ui/styles';
 import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
+import styles from './InputArea.css'
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    marginBottom: 0
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  description: {
-  	marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 400,
-  },
-  paper: {
-  	padding: '16px 16px 8px 24px'
-  },
-  button: {
-  	margin: theme.spacing.unit,
-
-  }
-})
 class InputArea extends Component {
 	constructor(props){
 		super(props)
@@ -88,28 +65,28 @@ class InputArea extends Component {
 		
 	}
 	render() {
-		var classes = this.props.classes
+		
 		return (
-			<Paper elevation={4} className={classes.paper}>
+			<Paper elevation={4} className='paper'>
 			<Typography type="title">Add new word</Typography>
-			<form className={classes.container}>
+			<form className="container">
 				<TextField
 					label='Word'
-					className={classes.textField}
+					className='textField'
 					value={this.state.word}
 					onChange={this.handleWordChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Translation'
-					className={classes.textField}
+					className='textField'
 					value={this.state.translation}
 					onChange={this.handleTranslationChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Description'
-					className={classes.description}
+					className='description'
 					value={this.state.description}
 					onChange={this.handleDescriptionChange.bind(this)}
 					margin='normal'
@@ -117,7 +94,7 @@ class InputArea extends Component {
 
 				
 			</form>
-			<Button disabled={this.state.wordIsEmpty && this.state.translationIsEmpty} raised color="primary" className={classes.button} onClick={this.addWord.bind(this)}>
+			<Button disabled={this.state.wordIsEmpty && this.state.translationIsEmpty} raised color="primary" className='button' onClick={this.addWord.bind(this)}>
 			        Add
 			</Button>
 			</Paper>
@@ -129,7 +106,6 @@ class InputArea extends Component {
 
 InputArea.propTypes = {
   classes: PropTypes.object.isRequired,
-
 };
 
 export default withStyles(styles)(InputArea)

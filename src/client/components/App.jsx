@@ -5,15 +5,17 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import { Tabs, Tab } from 'material-ui'
 
 import { MenuItem } from 'material-ui/Menu';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
 
-import InputAreaContainer from './content/InputAreaContainer'
-import ItemsTableContainer from './content/ItemsTableContainer'
+import { Router, IndexRoute, Route, Switch, Link } from 'react-router-dom'
 import SidebarContainer from './aside/SidebarContainer'
+import WordsField from './WordsField'
+import TestContainer from './test/TestContainer'
 
 const drawerWidth = 240; //Sidebar have it too
 const styles = theme => ({
@@ -32,6 +34,7 @@ const styles = theme => ({
   appBar: {
     position: 'absolute',
     width: `calc(100% - ${drawerWidth}px)`,
+    height: '64px'
   },
   'appBar-left': {
     marginLeft: drawerWidth,
@@ -48,26 +51,43 @@ const styles = theme => ({
       marginTop: 64,
     },
   },
+
+  tabs: {
+    height:'64px',
+    width: '150px'
+  }
 });
 
-class AppView extends React.Component {
+class App extends React.Component {
+
+  state = { 
+    value: 0,
+  } 
+
+  handleChange = (event, value) => {
+    this.setState({menuValue: value})
+  }
 
   render() {
     const { classes } = this.props;    
-
+    const { menuValue } = this.state;
     return (
       <div className={classes.root}>
         
         <div className={classes.appFrame}>
           <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
-            <Toolbar>
-              
-            </Toolbar>
+            <Tabs value={menuValue} onChange={this.handleChange}>
+              <Tab className={classes.tabs} label="Book" component={Link} to='book' />
+              <Tab className={classes.tabs} label="Test" component={Link} to='test'/>
+              <Tab className={classes.tabs} label="Item Three"/>
+            </Tabs>
           </AppBar>
           <SidebarContainer/>
           <main className={classes.content}>
-            <InputAreaContainer/>
-            <ItemsTableContainer/>
+          <Switch>
+            <Route path="/book" component={WordsField}/>
+            <Route path='/test' component={TestContainer}/>
+          </Switch>
           </main>
         </div>
       </div>
@@ -75,8 +95,9 @@ class AppView extends React.Component {
   }
 }
 
-AppView.propTypes = {
-  classes: PropTypes.object.isRequired,
+App.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(AppView);
+
+export default withStyles(styles)(App);
