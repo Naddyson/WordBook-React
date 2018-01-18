@@ -3,10 +3,12 @@ import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
-import { withStyles } from 'material-ui/styles';
+
+import { css } from 'aphrodite'
+
 import PropTypes from 'prop-types';
 import Typography from 'material-ui/Typography';
-import styles from './InputArea.css'
+import styles from './InputAreaStyles'
 
 class InputArea extends Component {
 	constructor(props){
@@ -67,26 +69,26 @@ class InputArea extends Component {
 	render() {
 		
 		return (
-			<Paper elevation={4} className='paper'>
+			<Paper elevation={4} className= {css(styles.paper)}>
 			<Typography type="title">Add new word</Typography>
-			<form className="container">
+			<form className={css(styles.container)}>
 				<TextField
 					label='Word'
-					className='textField'
+					className={css(styles.textField)}
 					value={this.state.word}
 					onChange={this.handleWordChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Translation'
-					className='textField'
+					className={css(styles.textField)}
 					value={this.state.translation}
 					onChange={this.handleTranslationChange.bind(this)}
 					margin='normal'
 				/>
 				<TextField
 					label='Description'
-					className='description'
+					className={css(styles.description)}
 					value={this.state.description}
 					onChange={this.handleDescriptionChange.bind(this)}
 					margin='normal'
@@ -94,7 +96,7 @@ class InputArea extends Component {
 
 				
 			</form>
-			<Button disabled={this.state.wordIsEmpty && this.state.translationIsEmpty} raised color="primary" className='button' onClick={this.addWord.bind(this)}>
+			<Button disabled={this.state.wordIsEmpty && this.state.translationIsEmpty} raised color="primary" className={css(styles.button)} onClick={this.addWord.bind(this)}>
 			        Add
 			</Button>
 			</Paper>
@@ -108,4 +110,4 @@ InputArea.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InputArea)
+export default InputArea;

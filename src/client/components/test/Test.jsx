@@ -10,8 +10,10 @@ class Test extends React.Component {
 	render(){
 		return(
 			<div className="Test">
-				
+				<p>TEST</p>
 			</div>
 		)
 	}
 }
+
+export default Test;

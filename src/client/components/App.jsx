@@ -79,15 +79,14 @@ class App extends React.Component {
             <Tabs value={menuValue} onChange={this.handleChange}>
               <Tab className={classes.tabs} label="Book" component={Link} to='book' />
               <Tab className={classes.tabs} label="Test" component={Link} to='test'/>
-              <Tab className={classes.tabs} label="Item Three"/>
             </Tabs>
           </AppBar>
           <SidebarContainer/>
           <main className={classes.content}>
-          <Switch>
-            <Route path="/book" component={WordsField}/>
-            <Route path='/test' component={TestContainer}/>
-          </Switch>
+            <Switch>
+              <Route path="/book" component={WordsField}/>
+              <Route path='/test' component={TestContainer}/>
+            </Switch>
           </main>
         </div>
       </div>

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-init": "^2.0.4",
+    "aphrodite": "^1.2.5",
     "axios": "^0.17.1",
     "babel-preset-react": "^6.24.1",
     "history": "^4.7.2",
