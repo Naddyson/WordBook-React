@@ -1,102 +1,91 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import { Tabs, Tab } from 'material-ui'
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 
-import { MenuItem } from 'material-ui/Menu';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
+import AppProtected from './AppProtected';
+import StartPage from './StartPage'
 
-import { Router, IndexRoute, Route, Switch, Link } from 'react-router-dom'
-import SidebarContainer from './aside/SidebarContainer'
-import WordsField from './WordsField'
-import TestContainer from './test/TestContainer'
+import { render } from 'react-dom'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import configureStore from '../store/configureStore'
+import { Router, IndexRoute, Route, Switch,Redirect } from 'react-router-dom'
+//import routes from './routes'
 
-const drawerWidth = 240; //Sidebar have it too
-const styles = theme => ({
-  root: {
-    width: '100%',
-    height: '100%',
-    zIndex: 1,
-    overflow: 'auto',
-  },
-  appFrame: {
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-    height: '100%',
-  },
-  appBar: {
-    position: 'absolute',
-    width: `calc(100% - ${drawerWidth}px)`,
-    height: '64px'
-  },
-  'appBar-left': {
-    marginLeft: drawerWidth,
-  },
-  
-  content: {
-    backgroundColor: theme.palette.background.default,
-    width: '100%',
-    padding: theme.spacing.unit * 3,
-    height: '100%',
-    marginTop: 56,
-    [theme.breakpoints.up('sm')]: {
-      height: 'calc(100% - 64px)',
-      marginTop: 64,
-    },
-  },
+import { firebaseAuth } from '../config/constants'
 
-  tabs: {
-    height:'64px',
-    width: '150px'
-  }
-});
 
-class App extends React.Component {
 
-  state = { 
-    value: 0,
-  } 
+/*import { ConnectedRouter as Router, routerMiddleware, push } from 'react-router-redux'
+*/import createHistory from 'history/createBrowserHistory'
 
-  handleChange = (event, value) => {
-    this.setState({menuValue: value})
-  }
+const history = createHistory();
+//const middleware = routerMiddleware(history);
+const store = configureStore();
 
-  render() {
-    const { classes } = this.props;    
-    const { menuValue } = this.state;
-    return (
-      <div className={classes.root}>
-        
-        <div className={classes.appFrame}>
-          <AppBar className={classNames(classes.appBar, classes[`appBar-left`])}>
-            <Tabs value={menuValue} onChange={this.handleChange}>
-              <Tab className={classes.tabs} label="Book" component={Link} to='book' />
-              <Tab className={classes.tabs} label="Test" component={Link} to='test'/>
-            </Tabs>
-          </AppBar>
-          <SidebarContainer/>
-          <main className={classes.content}>
-            <Switch>
-              <Route path="/book" component={WordsField}/>
-              <Route path='/test' component={TestContainer}/>
-            </Switch>
-          </main>
-        </div>
-      </div>
-    );
-  }
+
+store.subscribe(() => {
+	console.log('Store has changed')
+})
+
+function PrivateRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: 'auth', state: {from: props.location}}} />}
+    />
+  )
 }
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired
-};
+function PublicRoute ({component: Component, authed, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === false
+        ? <Component {...props} />
+        : <Redirect to='book' />}
+    />
+  )
+}
 
 
-export default withStyles(styles)(App);
+export default class App extends React.Component {
+	state = {
+		authed: false,
+		loading: true
+	}
+	componentDidMount () {
+		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
+			console.log(user)
+			if (user) {
+				this.setState({
+					authed: true,
+					loading: false,
+				})
+			} else {
+				this.setState({
+				authed: false,
+				loading: false
+				})
+			}
+		})
+	}
+	componentWillUnmount () {
+		this.removeListener()
+	}
+
+	render(){
+		return(
+			<Provider store={store}>
+
+				<Router history={history} >
+					<Switch>
+						<PublicRoute authed={this.state.authed} path="/auth" component={StartPage}/>
+						<PrivateRoute authed={this.state.authed} path="/" component={AppProtected}/>
+					</Switch>
+				</Router>
+			</Provider>
+		)
+	}
+}

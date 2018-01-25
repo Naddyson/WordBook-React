@@ -29,7 +29,7 @@ const styles = theme => ({
   }
 })
 
- class Sidebar extends React.Component {
+class Sidebar extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -43,37 +43,34 @@ const styles = theme => ({
       openDialog: true
     })
   }
-  setCurrentList(){
-
-  }
 
   render() {
     console.log(this.props.lists)
     var classes = this.props.classes
     return (
-       <Drawer
-        type="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor='left'
-      >
-        <div className={classes.drawerHeader}>
-          <img src={logo} className={classes.logo}/>
-        </div>
+     <Drawer
+      type="permanent"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      anchor='left'
+    >
+    <div className={classes.drawerHeader}>
+      <img src={logo} className={classes.logo}/>
+    </div>
 
-        <Divider />
-        <List>
-          {this.props.lists.map(list => {
-            return(
-              <ListItemContainer data={list} />
-            )
-          })}
-          <Divider />
-        </List>
+    <Divider />
+    <List>
+    {this.props.lists.map(list => {
+      return(
+        <ListItemContainer data={list} />
+        )
+    })}
+    <Divider />
+    </List>
 
-        <AddListContainer/>
-      </Drawer>
+    <AddListContainer/>
+    </Drawer>
     );
   }
 }

@@ -18,9 +18,7 @@ class SidebarContainer extends Component {
 	render(){
 		console.log(this.props.lists)
 		return (
-			
 			<App lists={this.props.lists}/>
-		
 		)
 	}
 }
