@@ -2,30 +2,23 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 import AppProtected from './AppProtected';
-import StartPage from './StartPage'
+import StartPage from './publicPages/StartPage'
 
 import { render } from 'react-dom'
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import configureStore from '../store/configureStore'
-import { Router, IndexRoute, Route, Switch,Redirect } from 'react-router-dom'
-//import routes from './routes'
+import { BrowserRouter, IndexRoute, Route, Switch,Redirect, withRouter } from 'react-router-dom'
 
 import { firebaseAuth } from '../config/constants'
+//
+
+import { connect } from 'react-redux';
+import createHistory from 'history/createBrowserHistory'
+import { setUserStatus } from '../actions/auth'
 
 
 
-/*import { ConnectedRouter as Router, routerMiddleware, push } from 'react-router-redux'
-*/import createHistory from 'history/createBrowserHistory'
-
-const history = createHistory();
-//const middleware = routerMiddleware(history);
-const store = configureStore();
-
-
-store.subscribe(() => {
-	console.log('Store has changed')
-})
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
@@ -33,7 +26,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === true
         ? <Component {...props} />
-        : <Redirect to={{pathname: 'auth', state: {from: props.location}}} />}
+        : <Redirect to="/auth"/>}
     />
   )
 }
@@ -44,48 +37,83 @@ function PublicRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === false
         ? <Component {...props} />
-        : <Redirect to='book' />}
+        : <Redirect to="/book"/>}
     />
   )
 }
 
 
-export default class App extends React.Component {
+
+class App extends React.Component {
 	state = {
-		authed: false,
-		loading: true
+		authed: true,
+		loading: true,
+		bool: true
+
+	}
+	GetAuthState = () => {
+	new Promise ( (resolve,reject) => {
+        firebaseAuth().onAuthStateChanged((user) => {
+        console.log(user)
+        if (user) {
+          resolve()
+        }
+        else {
+          reject()
+          }
+          })
+        }).then(
+          resolve => {
+           this.props.setUserStatus(true)
+          },
+          reject => {
+            this.props.setUserStatus(false)
+          }
+
+        )
+		if (!this.state.authed) {
+			this.props.history.push('/book')
+		}
 	}
 	componentDidMount () {
-		this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
-			console.log(user)
-			if (user) {
-				this.setState({
-					authed: true,
-					loading: false,
-				})
-			} else {
-				this.setState({
-				authed: false,
-				loading: false
-				})
-			}
-		})
+		this.GetAuthState()
+	}
+      
+
+	componentWillUpdate(){
+		this.GetAuthState()
+
 	}
 	componentWillUnmount () {
-		this.removeListener()
+		this.GetAuthState()
 	}
 
 	render(){
 		return(
-			<Provider store={store}>
-
-				<Router history={history} >
-					<Switch>
-						<PublicRoute authed={this.state.authed} path="/auth" component={StartPage}/>
-						<PrivateRoute authed={this.state.authed} path="/" component={AppProtected}/>
-					</Switch>
-				</Router>
-			</Provider>
+			
+			<Switch>
+				<PublicRoute authed={ this.state.authed } path="/auth" component={StartPage}/>
+				<PrivateRoute authed={ this.state.authed } path="/" component={AppProtected}/>
+			</Switch>
+				
 		)
 	}
 }
+
+function mapStateToProps(state){
+	return {
+		authed: state.isAuthenticated
+	}
+}
+
+function mapDispatchToProps(dispatch){
+	return {
+		
+		setUserStatus: (bool) => {
+			dispatch(setUserStatus(bool))
+		}
+	}
+}
+
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(App));

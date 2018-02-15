@@ -19,15 +19,9 @@ class TestItem extends React.Component {
 			answer: e.target.value
 		})
 	}
-	knowButtonHandle(){
-		if (this.state.answer != this.state.word.word) {
-			this.props.pushWrongAnswer(this.state.word);
-		}
-		this.props.nextWord();
-	}
-	dontKnowButtonHandle(){
-		this.props.pushWrongAnswer(this.state.word);
-		this.props.nextWord();
+	
+	nextButtonClickHandle(){
+		this.props.pushAnswer(this.state.word, this.state.answer);
 	}
 
 	render(){
@@ -42,12 +36,11 @@ class TestItem extends React.Component {
 					onChange={this.handleTranslationChange.bind(this)}
 					margin='normal'
 				/>
-				<Button raised color="primary" className={css(styles.button)} onClick={this.knowButtonHandle.bind(this)}>
-			        I know
+				
+				<Button raised color="primary" className={css(styles.button)} onClick={this.nextButtonClickHandle.bind(this)}>
+			        Next
 				</Button>
-				<Button raised color="danger" className={css(styles.button)} onClick={this.dontKnowButtonHandle.bind(this)}>
-			        I don't know
-				</Button>
+				
 			</Paper>
 		)
 	}

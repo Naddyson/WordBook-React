@@ -14,7 +14,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button'
 import { Router, IndexRoute, Route, Switch, Link } from 'react-router-dom'
 import SidebarContainer from './aside/SidebarContainer'
-import WordsField from './WordsField'
+import BookContentField from './BookContentField'
 import TestContainer from './test/TestContainer'
 
 import { logout } from '../actions/auth'
@@ -98,7 +98,7 @@ class AppProtected extends React.Component {
           <SidebarContainer/>
           <main className={classes.content}>
             <Switch>
-              <Route path="/book" component={WordsField}/>
+              <Route path="/book" component={BookContentField}/>
               <Route path='/test' component={TestContainer}/>
               
             </Switch>

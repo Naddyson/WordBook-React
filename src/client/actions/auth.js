@@ -1,7 +1,7 @@
 import { ref, firebaseAuth } from '../config/constants'
 
 export function auth (email, pw) {
-	console.log('hehhehe')
+	
   return firebaseAuth().createUserWithEmailAndPassword(email, pw)
     .then(saveUser)
 }
@@ -25,4 +25,15 @@ export function saveUser (user) {
       uid: user.uid
     })
     .then(() => user)
+}
+
+export function setUserStatus(bool){
+  return dispatch =>  {
+    console.log(bool);
+    dispatch({
+      type: "AUTH_STATUS",
+      payload: bool
+    })
+  }
+
 }

@@ -45,6 +45,7 @@ const styles = theme => ({
 					onMouseEnter={this.onMouseEnter.bind(this)}
 					onMouseLeave={this.onMouseLeave.bind(this)}
 					onClick={this.selectList.bind(this)}
+					divider={true}
 				>
 					<ListItemText primary={this.state.name} />
 					{ this.state.showDeleteBtn ? (

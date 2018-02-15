@@ -18,9 +18,12 @@ class Test extends React.Component {
 	startTest(){
 		this.props.startTest()
 	}
+	pushAnswer(word, answer){
+		this.props.pushAnswer(word,answer)
+	}
 	
 	render(){
-		console.log(Children.toArray( this.props.children ));
+		console.log( this.props.children );
 		
 		return(
 
@@ -28,13 +31,15 @@ class Test extends React.Component {
 				<h1 className= { css(styles.title)}>Test: {this.props.currentList.name}</h1>
 				<h2 className = {css(styles.title)}>Total Words: {Children.count(this.props.children)} </h2>
 				{
+					
 					this.props.start 
-					? 
-					<div/> // Children.toArray(this.props.children )[this.props.currentWordId]
-					: 
-					<Button raised color="primary" className={css(styles.button)} onClick={this.startTest.bind(this)}>
-			        	Start
-					</Button>
+					? <TestItem 
+						word = {this.props.words[this.props.currentWordId]} 
+						pushAnswer = {this.pushAnswer.bind(this,word,answer)}/> 	
+					: <Button raised color="primary" className={css(styles.button)} onClick={this.startTest.bind(this)}>
+						Start
+						</Button>
+					
 
 				}
 				

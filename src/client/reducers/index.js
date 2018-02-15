@@ -12,7 +12,8 @@ const initialState = {
 			_id: 0,
 			name: "All words"
 		}
-	]
+	],
+	isAuthenticated: false
 }
 
 export default function words (state = initialState, action) {
@@ -26,6 +27,10 @@ export default function words (state = initialState, action) {
 		}
 		case "SET_CURRENT_LIST": {
 			return {...state, currentList: action.payload}
+		}
+		case "AUTH_STATUS": {
+			console.log(action.payload)
+			return { ...state, isAuthenticated: action.payload }
 		}
 		default: return state
 	}

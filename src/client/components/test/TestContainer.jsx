@@ -3,6 +3,7 @@ import Test from './Test'
 import { connect } from 'react-redux';
 import { fetchWords, deleteWord } from '../../actions'
 import TestItem from './TestItem'
+import TestResults from './TestResults'
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -18,10 +19,13 @@ class TestContainer extends React.Component {
 		this.props.onGetWords()
 		this.state = {
 			start: false,
-			words: shuffle(this.props.words),
-			currentWordId: 0,
+			words: this.props.words,
+			currentItemId: 0,
 			wrongAnswers: [],
-			start: false
+			start: false,
+			wrongs: [],
+			corrects: [],
+			finish: false
 		}
 		
 	}
@@ -29,15 +33,19 @@ class TestContainer extends React.Component {
 	componentDidMount(){
 		
 	}
-	pushWrongAnswer(word){
-		this.setState({
-			wrongAnswers: { ...this.state.wrongAnswers, word } 
-		});
+	pushAnswer(item, answer){
+		answer === item.word
+		?	this.setState({corrects: {...this.state.corrects, item } })
+		:   this.setState({wrongs: { ...this.state.wrongs, item } })
 	}
 	nextWord(){
-		this.setState({ currentWordId: this.state.currentWordId++ })
+		if( currentItemId <= this.state.words.length ){
+			this.setState({ currentWord: this.state.currentItemId++ })
+		} else {
+			this.setState({finish: true})
+		}
 	}
-	startTest(){
+	isStarted(){
 		this.setState({
 			start: true
 		})
@@ -49,19 +57,29 @@ class TestContainer extends React.Component {
 		
 		return (
 			<div>
-				<Test 
-					currentList={this.props.currentList} 
-					startTest = { this.startTest.bind(this) }
-					start = { this.state.start }
-				>
-					<TestItem
-						word = { words[0] } 
-						pushWrongAnswer = {this.pushWrongAnswer.bind(this)}
-						nextWord = { this.nextWord.bind(this) }
-						currentWordId = { this.state.currentWordId }
-					/>
+				{
+					this.state.finish
+					?
+					<TestResults 
+						listLength = {this.state.words.length}
+						wrongs = {this.state.wrongs}
+						correct = {this.state.correct}
 
-				</Test>
+					/>
+					: 
+					<Test 
+						currentListId={this.props.currentList} 
+						start = { this.startTest.bind(this) }
+						isStarted = { this.state.start }
+						showNextItem = { this.nextWord.bind(this)}
+						pushAnswer = {this.pushAnswer.bind(this)}
+						currentItem = { this.state.words[this.state.currentItemId] }
+						listLength = { length }
+						finish = { this.state.finish }
+					/>
+				}
+				
+				
 				
 			</div>
 		)
@@ -71,6 +89,7 @@ class TestContainer extends React.Component {
 
 function mapStateToProps(state){
 	function filter(){
+		console.log(state.words)
 			if (state.currentList._id != 0){
 				return state.words.filter(word => {
 					if (word.list === state.currentList._id) return true; return false;
@@ -80,7 +99,7 @@ function mapStateToProps(state){
 			}
 		}
 	return {
-		words: filter(),
+		words: shuffle(filter()),
 		currentList: state.currentList
 	}
 }

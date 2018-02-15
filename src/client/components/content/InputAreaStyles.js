@@ -18,6 +18,8 @@ export default StyleSheet.create({
 	},
 	paper: {
 		padding: '16px 16px 8px 24px',
+		width: '100%',
+		height: '25%'
 	},
 	button: {
 		margin: 20,

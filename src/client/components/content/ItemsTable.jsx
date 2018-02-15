@@ -234,8 +234,7 @@ class ItemsTable extends React.Component {
               numSelected={selected.length}
               
               onSelectAllClick={this.handleSelectAllClick}
-                            rowCount={data.length}
-              
+              rowCount={data.length}
             />
             <TableBody>
               {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
