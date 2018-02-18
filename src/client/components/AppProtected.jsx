@@ -17,7 +17,6 @@ import SidebarContainer from './aside/SidebarContainer'
 import WordsField from './WordsField'
 import TestContainer from './test/TestContainer'
 
-import { logout } from '../actions/auth'
 
 const drawerWidth = 240; //Sidebar have it too
 const styles = theme => ({
@@ -93,7 +92,7 @@ class AppProtected extends React.Component {
               <Tab className={classes.tab} label="Book" component={Link} to='book' />
               <Tab className={classes.tab} label="Test" component={Link} to='test'/>
             </Tabs>
-            <Button className={classes.loginButton} onClick={logout()}>Logout</Button>
+          
           </AppBar>
           <SidebarContainer/>
           <main className={classes.content}>

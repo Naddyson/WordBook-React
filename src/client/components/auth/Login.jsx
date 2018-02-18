@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import { login, resetPassword } from '../../actions/auth'
 import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
@@ -66,4 +66,4 @@ class Login extends React.Component {
 	}
 }
 
-export default Login
+export default Login*/

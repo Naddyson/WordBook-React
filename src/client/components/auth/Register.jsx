@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import { auth } from '../../actions/auth'
 import Button from 'material-ui/Button'
 import Paper from 'material-ui/Paper'
@@ -61,4 +61,4 @@ class Register extends React.Component {
 	}
 }
 
-export default Register
+export default Register*/
