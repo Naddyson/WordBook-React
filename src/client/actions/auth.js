@@ -1,3 +1,4 @@
+
 import { ref, firebaseAuth } from '../config/constants'
 
 export function auth (email, pw) {
@@ -37,3 +38,4 @@ export function setUserStatus(bool){
   }
 
 }
+
