@@ -3,6 +3,8 @@ import styles from './TestStyles'
 import { css } from 'aphrodite'
 import Button from 'material-ui/Button'
 import TestItem from './TestItem'
+import Paper from 'material-ui/Paper'
+import { LinearProgress } from 'material-ui/Progress';
 
 
 
@@ -12,38 +14,45 @@ class Test extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			
+			word: this.props.item,
+			progressStep:  100 / this.props.listLength,
+			progressValue: 0 
 		}
 	}
-	startTest(){
-		this.props.startTest()
+	start(){
+		this.props.start()
 	}
-	pushAnswer(word, answer){
+	
+	pushAnswer = (word,answer) => {
 		this.props.pushAnswer(word,answer)
+		this.setState({
+			progressValue: this.state.progressValue+this.state.progressStep
+		})
 	}
 	
 	render(){
-		console.log( this.props.children );
-		
+		console.log(this.props.currentList)
 		return(
 
-			<div className={css(styles.container)}>
-				<h1 className= { css(styles.title)}>Test: {this.props.currentList.name}</h1>
-				<h2 className = {css(styles.title)}>Total Words: {Children.count(this.props.children)} </h2>
+			<Paper elevation={4} className={css(styles.paper)}>
+				<h1 className= { css(styles.title)}>Test: { this.props.currentList.name } ({ this.props.listLength })</h1>
+				<LinearProgress mode="determinate" value={this.state.progressValue} />
+		        <br />
+		        
 				{
 					
-					this.props.start 
+					this.props.isStarted 
 					? <TestItem 
-						word = {this.props.words[this.props.currentWordId]} 
-						pushAnswer = {this.pushAnswer.bind(this,word,answer)}/> 	
-					: <Button raised color="primary" className={css(styles.button)} onClick={this.startTest.bind(this)}>
+						item = { this.props.item } 
+						pushAnswer = {this.pushAnswer}/> 	
+					: <Button raised color="primary" className={css(styles.button)} onClick={this.start.bind(this)}>
 						Start
 						</Button>
 					
 
 				}
 				
-			</div>
+			</Paper>
 		)
 	}
 }

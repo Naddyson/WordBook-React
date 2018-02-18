@@ -32,7 +32,7 @@ class ItemsTableContainer extends Component {
 		}
 		
 	}
-	componentDidMount(){
+	componentWillMount(){
 		this.props.onGetWords()
 	}
 	handleDeleteSelected(selected){

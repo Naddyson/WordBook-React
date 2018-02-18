@@ -10,30 +10,31 @@ class TestItem extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			word: this.props.word,
+			
 			answer: ''
 		}
 	}
-	handleTranslationChange(e) {
+	handleAnswerChange(e) {
 		this.setState({
 			answer: e.target.value
 		})
 	}
 	
 	nextButtonClickHandle(){
-		this.props.pushAnswer(this.state.word, this.state.answer);
+		this.setState({ answer: '' })
+		this.props.pushAnswer(this.props.item, this.state.answer);
 	}
 
 	render(){
-		console.log(this.state.word)
+		console.log(this.props.item)
 		return (
-			<Paper elevation={4} className= {css(styles.paper)}>
-				<h2>Translate word: {this.state.word}</h2>
+			<div elevation={4} className= {css(styles.paper)}>
+				<h2>Translate word: {this.props.item.translation}</h2>
 				<TextField
-					label='Translation'
+					label='Answer'
 					className={css(styles.textField)}
-					value={this.state.translation}
-					onChange={this.handleTranslationChange.bind(this)}
+					value={this.state.answer}
+					onChange={this.handleAnswerChange.bind(this)}
 					margin='normal'
 				/>
 				
@@ -41,14 +42,11 @@ class TestItem extends React.Component {
 			        Next
 				</Button>
 				
-			</Paper>
+			</div>
 		)
 	}
 }
 
-TestItem.propTypes = {
-  word: PropTypes.object.isRequired,
-};
 
 
 export default TestItem

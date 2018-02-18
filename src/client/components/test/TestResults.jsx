@@ -15,25 +15,35 @@ class TestResults extends React.Component {
 			
 		}
 	}
+
+	restart = () => {
+		this.props.restart()
+	}
 	
 	render(){
-		console.log( this.props.children );
-		let length = this.props.length;
+		
+		let listLength = this.props.listLength;
 		let corrects = this.props.corrects
 		let wrongs = this.props.wrongs
+		console.log(wrongs)
 		return(
 
 			<div className={css(styles.container)}>
 				<h1 className= { css(styles.title)}>You did this!</h1>
 				
-				<h2 className= { css(styles.title)}> {correct.length} correct of {length} {corrects/length*100}  </h2>
+				<h2> {corrects.length} correct of {listLength}  </h2>
 
-				<h2 className= { css(styles.title)}> You have to learn words below:  </h2>
+				<h2> You have to learn words below:  </h2>
 				{
 					wrongs.map(item => {
+						return(
 							<p> {item.word} - {item.translation} </p>
+							)
 						})
 				}
+				<Button raised color="primary" className={css(styles.button)} onClick={this.restart.bind(this)}>
+					Restart
+				</Button>
 				
 			</div>
 		)
