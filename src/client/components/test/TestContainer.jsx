@@ -21,7 +21,7 @@ class TestContainer extends React.Component {
 		this.props.onGetWords()
 		this.state = {
 			isStarted: false,
-			words: shuffle(this.props.words),
+			words: this.props.words,
 			currentItemId: 0,
 			wrongAnswers: [],
 			wrongs: [],
@@ -77,15 +77,14 @@ class TestContainer extends React.Component {
 	}
 	render(){
 
+		let words = this.props.words
+		console.log(words)
+		let currentWord = words[this.state.currentItemId]
 		
-		console.log(this.state.words)
-		let currentWord = this.state.words[this.state.currentItemId]
-		console.log(currentWord)
-		console.log(this.state.currentItemId)
 		return (
 			<div>
 				{
-					this.state.currentItemId >= this.state.words.length
+					this.state.currentItemId >= words.length
 					?
 					<TestResults 
 						listLength = {this.state.words.length}
@@ -102,7 +101,7 @@ class TestContainer extends React.Component {
 						nextItem = { this.nextWord.bind(this)}
 						pushAnswer = {this.pushAnswer.bind(this)}
 						item = { currentWord }
-						listLength = { this.props.words.length }
+						listLength = { words.length }
 						finish = { this.state.finish }
 					/>
 				}
@@ -117,7 +116,7 @@ class TestContainer extends React.Component {
 
 function mapStateToProps(state){
 	let filterByList = () =>{
-		
+		console.log(state.currentList)
 			if (state.currentList._id != 0){
 				return state.words.filter(word => {
 					if (word.list === state.currentList._id) return true; return false;
@@ -127,7 +126,7 @@ function mapStateToProps(state){
 			}
 		}
 	return {
-		words: filterByList(),
+		words: shuffle(filterByList()),
 		currentList: state.currentList
 	}
 }

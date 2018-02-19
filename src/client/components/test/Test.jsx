@@ -15,7 +15,6 @@ class Test extends React.Component {
 		super(props);
 		this.state = {
 			word: this.props.item,
-			progressStep:  100 / this.props.listLength,
 			progressValue: 0 
 		}
 	}
@@ -26,7 +25,7 @@ class Test extends React.Component {
 	pushAnswer = (word,answer) => {
 		this.props.pushAnswer(word,answer)
 		this.setState({
-			progressValue: this.state.progressValue+this.state.progressStep
+			progressValue: this.state.progressValue + (100 / this.props.listLength)
 		})
 	}
 	
